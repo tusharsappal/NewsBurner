@@ -20,8 +20,8 @@ public class SecondActivity extends ListActivity
 	
 	private List<Message> messages=null;;
 	int selection;
-	
-	List<String> titles=null;
+	ArrayAdapter<String> mAdapter;
+	List<String> titles= new ArrayList<String>();
 	
 	  BaseFeedParser parser;
  @Override
@@ -41,6 +41,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	pulldata.execute();
 	
 	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row,titles);
+	mAdapter= adapter;
 	
 	 
 	this.setListAdapter(adapter);
@@ -124,58 +125,18 @@ protected void onCreate(Bundle savedInstanceState) {
 		return null;
 	}
 	 
-//	@Override
-//	protected void onPostExecute(Void result) {
-//		
-//	
-//    return;
-//	}
+	@Override
+	protected void onPostExecute(Void result) {
+		
+	 mAdapter.notifyDataSetChanged();
+         return;
+	}
  
  }
  
  
 	
-// private void loadFeed(){
-// 	try{
-//	    	
-// 		BaseFeedParser parser = null;
-// 		if(selection==1)
-// 		{
-// 			
-// 		parser = new BaseFeedParser("http://feeds.washingtonpost.com/rss/politics");
-// 		
-// 		//BaseFeedParser baseparser =null;
-// 	    // parser.new DownloadData().execute();	
-// 		
-// 		}
-// 		else if(selection ==2)
-// 		{
-// 			parser = new BaseFeedParser("http://feeds.washingtonpost.com/rss/politics");
-// 		
-// 		//	BaseFeedParser baseparser =null;
-// 		  //   parser.new DownloadData().execute();
-// 		}
-// 		
-//	    	messages = parser.parse();
-//	    	List<String> titles = new ArrayList<String>(messages.size());
-//	    	for (Message msg : messages){
-//	    		titles.add(msg.getTitle());
-//	    	}
-//	    	
-//	    	ArrayAdapter<String> adapter = 
-//	    		new ArrayAdapter<String>(this, R.layout.row,titles);
-//	    	this.setListAdapter(adapter);
-// 	} catch (Throwable t){
-// 		Log.e("News HeadLines",t.getMessage(),t);
-// 	}
-// 
-// 
-// 
-// }
-// 
- 
- 
- 
+
  
  
  
