@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NewsBurner</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="paper1">The Hindu</string>
+    <string name="paper2">The Times Of India</string>
+    <string name="paper3">First Post</string>
+  
+    <string name="Submit">Submit</string>
+
+
+
+</resources>
