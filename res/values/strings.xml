@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NewsBurner</string>
+    <string name="action_settings">Settings</string>
+    <string name="paper1">The Hindu</string>
+    <string name="paper2">The Times Of India</string>
+    <string name="paper3">TechCrunch News</string>
+    <string name="paper4">NDTV News</string>
+    <string name="paper5">BBC News</string>
+    <string name="text_main_activity_description">Select the News Source from the List</string>
+    <string name="Main_Button_text">Load Feed</string>
+    <string name="ActionBarDescription">This space is reserved for the icon to be displayed in the ActionBar</string>
+
+</resources>
