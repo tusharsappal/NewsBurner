@@ -11,5 +11,10 @@
     <string name="text_main_activity_description">Select the News Source from the List</string>
     <string name="Main_Button_text">Load Feed</string>
     <string name="ActionBarDescription">This space is reserved for the icon to be displayed in the ActionBar</string>
+    <string name="sportsnews">Sports Feed</string>
+    <string name="businessnews">Business Feeds</string> 
+    <string name="technologynews"> Technology Feeds</string>
+    <string name="entertainmentnews">Entertainment Feeds</string>
+    
 
 </resources>

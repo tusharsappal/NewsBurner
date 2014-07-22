@@ -1,6 +1,5 @@
 package com.tusharsappal.newsburner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -10,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filterable;
+
 import android.widget.TextView;
 
 public class CustomListAdapter extends ArrayAdapter {
@@ -33,9 +32,9 @@ public class CustomListAdapter extends ArrayAdapter {
 	public CustomListAdapter(MainActivity context, int customList,
 			String[] news_papers) {
 		super(context, customList, news_papers);
-		mContext =context;
-		id= customList;
-		newspapers= news_papers;
+		mContext = context;
+		id = customList;
+		newspapers = news_papers;
 	}
 
 	@Override
@@ -62,10 +61,4 @@ public class CustomListAdapter extends ArrayAdapter {
 		return mView;
 	}
 
-
-
-
-
 }
-
-	

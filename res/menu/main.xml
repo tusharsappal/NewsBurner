@@ -1,9 +1,53 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <!--
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:id="@+id/sportsnews"
+        android:showAsAction="ifRoom|withText"
+        android:orderInCategory="102"
+        android:title="@string/sportsnews" />
+   
+    
+    <item
+        android:id="@+id/businessnews"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:orderInCategory="103"
+        android:title="@string/businessnews"/>
+    <item
+        android:id="@id/technolgynews"
+        android:showAsAction="never"
+        android:title="@string/technologynews"/>
+    <item
+        android:id="@id/entertainmentnews"
+        android:showAsAction="never"
+        android:title="@string/entertainmentnews"/>
+    -->
+
+    <item
+        android:id="@+id/item1"
+        android:orderInCategory="101"
+        android:showAsAction="never"
+        android:title="@string/sportsnews">
+    </item>
+    <item
+        android:id="@+id/item2"
+        android:orderInCategory="102"
+        android:showAsAction="never"
+        android:title="@string/businessnews">
+    </item>
+    <item
+        android:id="@+id/item3"
+        android:orderInCategory="103"
+        android:showAsAction="never"
+        android:title="@string/technologynews">
+    </item>
+   <item
+       android:id="@+id/item4"
+       android:orderInCategory="104"
+       android:showAsAction="never"
+       android:title="@string/entertainmentnews">
+       
+       
+   </item>
 
 </menu>

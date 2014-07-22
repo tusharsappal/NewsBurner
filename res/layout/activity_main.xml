@@ -19,14 +19,14 @@
         android:text="@string/text_main_activity_description"
         tools:ignore="NotSibling" />
 
-    <ListView
-        android:id="@android:id/list"
+    <ExpandableListView
+        android:id="@+id/expList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linlay"
         android:layout_below="@+id/main_page_description"
         tools:ignore="NotSibling" >
-    </ListView>
+    </ExpandableListView>
 
     
 

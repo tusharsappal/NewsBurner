@@ -1,37 +1,31 @@
 package com.tusharsappal.newsburner;
 
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class SecondActivity extends SherlockListActivity implements Filterable {
 
 	private List<Message> messages = null;;
 	int selection;
+	int sub_selection;
 
 	ListAdapter mAdapter;
 	ListAdapter originalListAdapter;
@@ -117,26 +111,93 @@ public class SecondActivity extends SherlockListActivity implements Filterable {
 
 	private void selection() {
 
-		String newspaperName = getIntent().getExtras().getString(
-				"newspapername");
+		Bundle extras = getIntent().getExtras();
+		if (extras == null) {
+			return;
+		} else {
+			int newspaperName = extras.getInt("newspaper");
+			int category = extras.getInt("subSelection");
 
-		if (newspaperName.equals("Hindustan Times")) {
-			selection = 1;
+			// sub_selection = getIntent().getExtras().getInt("subSelection");
+
+			if (newspaperName == 0) {
+
+				if (category == 0) {
+					selection = 1;
+					sub_selection = 1;
+				}
+
+				else if (category == 1) {
+					selection = 1;
+					sub_selection = 2;
+				}
+
+				else if (category == 2) {
+					selection = 1;
+					sub_selection = 3;
+				}
+			}
+
+			else if (newspaperName == 1) {
+
+				if (category == 0) {
+					selection = 2;
+					sub_selection = 1;
+				} else if (category == 1) {
+					selection = 2;
+					sub_selection = 2;
+				} else if (category == 2) {
+					selection = 2;
+					sub_selection = 3;
+				}
+
+			}
+
+			else if (newspaperName == 2) {
+				if (category == 0) {
+					selection = 3;
+					sub_selection = 1;
+				} else if (category == 1) {
+					selection = 3;
+					sub_selection = 2;
+				} else if (category == 2) {
+					selection = 3;
+					sub_selection = 3;
+				}
+
+			}
+
+			else if (newspaperName == 3) {
+
+				if (category == 0) {
+					selection = 4;
+					sub_selection = 1;
+				} else if (category == 1) {
+					selection = 4;
+					sub_selection = 2;
+				} else if (category == 2) {
+					selection = 4;
+					sub_selection = 3;
+				}
+
+			}
+
+			else if (newspaperName == 4) {
+
+				if (category == 0) {
+					selection = 5;
+					sub_selection = 1;
+				} else if (category == 1) {
+					selection = 5;
+					sub_selection = 2;
+				} else if (category == 2) {
+					selection = 5;
+					sub_selection = 3;
+				}
+			}
+
 		}
-		else if (newspaperName.equals("The Times Of India")) {
-			selection = 2;
-		}
-		else if (newspaperName.equals("NDTV News")) {
-			selection = 4;
-		} else if (newspaperName.equals("BBC News")) {
-			selection = 5;
-		} else if (newspaperName.equals("New York Times")) {
-			selection = 6;
-		}
-		else if (newspaperName.equals("Yahoo India News"))
-		{
-			selection =7;
-		}
+
 	}
 
 	public String trimDescription(String text_to_be_trimmed) {
@@ -156,36 +217,104 @@ public class SecondActivity extends SherlockListActivity implements Filterable {
 
 				if (selection == 1) {
 
-					parser = new BaseFeedParser(
-							"http://feeds.hindustantimes.com/HT-HomePage-TopStories"
-							.toString());
+					if (sub_selection == 1) {
+						parser = new BaseFeedParser(
+								"http://feeds.hindustantimes.com/HT-HomePage-TopStories"
+										.toString());
+					} else if (sub_selection == 2) {
+						parser = new BaseFeedParser(
+								"http://feeds.hindustantimes.com/HT-Reviews"
+										.toString());
+					} else if (sub_selection == 3) {
+						parser = new BaseFeedParser(
+								"http://feeds.hindustantimes.com/HT-Business"
+										.toString());
+					}
 
-				} else if (selection == 2) {
-					parser = new BaseFeedParser(
-							"http://timesofindia.feedsportal.com/c/33039/f/533965/index.rss"
-							.toString());
-
-				} else if (selection == 3) {
-					parser = new BaseFeedParser(
-							"http://feeds.feedburner.com/TechCrunch".toString());
-
-				} else if (selection == 4) {
-					parser = new BaseFeedParser(
-							"http://feeds.feedburner.com/NdtvNews-TopStories"
-							.toString());
-				} else if (selection == 5) {
-					parser = new BaseFeedParser(
-							"http://feeds.bbci.co.uk/news/rss.xml".toString());
-				} else if (selection == 6) {
-					
-					
-					parser = new BaseFeedParser(
-							"http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
-							.toString());
 				}
-				else if (selection ==7)
+
+				else if (selection == 2) {
+
+					if (sub_selection == 1) {
+						parser = new BaseFeedParser(
+								"http://timesofindia.feedsportal.com/c/33039/f/533965/index.rss"
+										.toString());
+					}
+
+					else if (sub_selection == 2) {
+						parser = new BaseFeedParser(
+								"http://timesofindia.feedsportal.com/c/33039/f/533923/index.rss"
+										.toString());
+					} else if (sub_selection == 3) {
+						parser = new BaseFeedParser(
+								"http://timesofindia.feedsportal.com/c/33039/f/533919/index.rss"
+										.toString());
+					}
+
+				}
+
+				else if (selection == 3)
+
 				{
-					parser = new BaseFeedParser("https://in.news.yahoo.com/rss/national".toString());
+
+					if (sub_selection == 1) {
+						parser = new BaseFeedParser(
+								"http://feeds.feedburner.com/NdtvNews-TopStories"
+										.toString());
+					}
+
+					else if (sub_selection == 2) {
+						parser = new BaseFeedParser(
+								"http://feeds.feedburner.com/NDTV-Tech"
+										.toString());
+					}
+
+					else if (sub_selection == 3) {
+						parser = new BaseFeedParser(
+								"http://feeds.feedburner.com/NDTV-Business"
+										.toString());
+					}
+
+				}
+
+				else if (selection == 4) {
+
+					if (sub_selection == 1) {
+						parser = new BaseFeedParser(
+								"http://feeds.bbci.co.uk/news/rss.xml"
+										.toString());
+					}
+
+					else if (sub_selection == 2) {
+						parser = new BaseFeedParser(
+								"http://feeds.bbci.co.uk/news/technology/rss.xml"
+										.toString());
+					} else if (sub_selection == 3) {
+						parser = new BaseFeedParser(
+								"http://feeds.bbci.co.uk/news/business/rss.xml"
+										.toString());
+					}
+
+				}
+
+				else if (selection == 5) {
+
+					if (sub_selection == 1) {
+						parser = new BaseFeedParser(
+								"http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
+										.toString());
+					}
+
+					else if (sub_selection == 2) {
+						parser = new BaseFeedParser(
+								"http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+										.toString());
+					} else if (sub_selection == 3) {
+						parser = new BaseFeedParser(
+								"http://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+										.toString());
+					}
+
 				}
 
 				messages = parser.parse();

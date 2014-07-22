@@ -1,29 +1,39 @@
 package com.tusharsappal.newsburner;
 
-import com.actionbarsherlock.app.SherlockListActivity;
-//import com.google.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-import com.tusharsappal.newsburner.R;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.content.Context;
-import android.content.Intent;
 import android.util.DisplayMetrics;
+import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
-public class MainActivity extends SherlockListActivity {
+import com.tusharsappal.newsburner.ExpandableListAdapter;
+import com.actionbarsherlock.app.SherlockActivity;
+//import com.google.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
 
-	Intent intent;
+public class MainActivity extends SherlockActivity {
+
 	// private AdView adView;
 
-	String[] news_papers = new String[] { "Hindustan Times",
-			"The Times Of India", "NDTV News", "BBC News", "New York Times",
-			"Yahoo India News" };
+	List<String> groupList;
+	List<String> childList;
+	Map<String, List<String>> newsPaperCollection;
+	ExpandableListView expListView;
+
+	private Menu menu;
+
+	// int sub_selection=1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,47 +48,107 @@ public class MainActivity extends SherlockListActivity {
 					Toast.LENGTH_LONG).show();
 		} else {
 
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, news_papers);
+			createGroupList();
 
-			setListAdapter(adapter);
+			createCollection();
+
+			expListView = (ExpandableListView) findViewById(R.id.expList);
+			final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
+					this, groupList, newsPaperCollection);
+			expListView.setAdapter(expListAdapter);
+
+			// setGroupIndicatorToRight();
+
+			expListView.setOnChildClickListener(new OnChildClickListener() {
+
+				public boolean onChildClick(ExpandableListView parent, View v,
+						int groupPosition, int childPosition, long id) {
+					Intent intent = new Intent(MainActivity.this,
+							SecondActivity.class);
+					final String selected = (String) expListAdapter.getChild(
+							groupPosition, childPosition);
+					
+					intent.putExtra("subSelection", childPosition);
+					intent.putExtra("newspaper", groupPosition);
+					intent.putExtra("subSelection", childPosition);
+
+				
+
+					startActivity(intent);
+					return true;
+				}
+			});
+
+			
 		}
 
 	}
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	private void createGroupList() {
 
-		Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+		// Hindustan Times",
+		// "The Times Of India", "NDTV News", "BBC News", "New York Times",
+		// "Yahoo India News
+		groupList = new ArrayList<String>();
+		groupList.add("Hindustan Times");
+		groupList.add("The Times Of India");
+		groupList.add("NDTV News");
+		groupList.add("BBC News");
+		groupList.add("New York Times");
+		// groupList.add("Yahoo India News");
+	}
 
-		switch (position) {
-		case 0:
-			intent.putExtra("newspapername", news_papers[0]);
-			break;
-		case 1:
+	private void createCollection() {
+		// preparing News Paper Subselection collection(child)
 
-			intent.putExtra("newspapername", news_papers[1]);
-			break;
+		String[] hindustanTimes = { "Top Stories", "Technology News",
+				"Business News" };
+		String[] theTimesOfIndia = { "Top Stories", "Technology News",
+				"Business News" };
+		String[] ndtvNews = { "Top Stories", "Technology News", "Business News" };
+		String[] bbcNews = { "Top Stories", "Technology News", "Business News" };
+		String[] newYorkTimes = { "Top Stories", "Technology News",
+				"Business News" };
 
-		case 2:
-			intent.putExtra("newspapername", news_papers[2]);
-			break;
-		case 3:
-			intent.putExtra("newspapername", news_papers[3]);
-			break;
-		case 4:
-			intent.putExtra("newspapername", news_papers[4]);
-			break;
-		case 5:
-			intent.putExtra("newspapername", news_papers[5]);
+		newsPaperCollection = new LinkedHashMap<String, List<String>>();
 
-		default:
-			break;
+		for (String newspapers : groupList) {
+			if (newspapers.equals("Hindustan Times")) {
+				loadChild(hindustanTimes);
+			} else if (newspapers.equals("The Times Of India"))
+				loadChild(theTimesOfIndia);
+			else if (newspapers.equals("NDTV News"))
+				loadChild(ndtvNews);
+			else if (newspapers.equals("BBC News"))
+				loadChild(bbcNews);
+			else if (newspapers.equals("New York Times"))
+				loadChild(newYorkTimes);
+
+			newsPaperCollection.put(newspapers, childList);
 		}
+	}
 
-		startActivity(intent);
+	private void loadChild(String[] laptopModels) {
+		childList = new ArrayList<String>();
+		for (String model : laptopModels)
+			childList.add(model);
+	}
 
-		super.onListItemClick(l, v, position, id);
+	private void setGroupIndicatorToRight() {
+		/* Get the screen width */
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		int width = dm.widthPixels;
+
+		expListView.setIndicatorBounds(width - getDipsFromPixel(35), width
+				- getDipsFromPixel(5));
+	}
+
+	public int getDipsFromPixel(float pixels) {
+		// Get the screen's density scale
+		final float scale = getResources().getDisplayMetrics().density;
+		// Convert the dps to pixels, based on density scale
+		return (int) (pixels * scale + 0.5f);
 	}
 
 	private boolean isNetworkAvailable() {
@@ -97,4 +167,5 @@ public class MainActivity extends SherlockListActivity {
 		}
 		return haveConnectedWifi || haveConnectedMobile;
 	}
+
 }
